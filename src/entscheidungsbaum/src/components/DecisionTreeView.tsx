@@ -6,11 +6,10 @@ export type DecisionTreeProps = {
 
 export function DecisionTreeView(props: DecisionTreeProps) {
     const [state, setState] = useState<DecisionTreeState>(createInitialDecisionTreeState(props.decisionTree);
-    if (isDecisionTreeFinished(props.decisionTree, state)) {
-        return <ResultView chosenValues={getChosenValues(props.decisionTree, state)} />;
-    } else {
+    const decision = getNextDecision(props.decisionTree, state);
+    if (decision) {
         return <DecisionView
-            decision={getNextDecision(props.decisionTree, state)}
+            decision={decision}
             onChooseValue={(value: any) => {
                 setState(chooseValue(props.decisionTree, state, value));
             }}
@@ -18,5 +17,7 @@ export function DecisionTreeView(props: DecisionTreeProps) {
                 setState(undoChoice(props.decisionTree, state));
             }}
         />;
+    } else {
+        return <ResultView chosenValues={getChosenValues(props.decisionTree, state)} />;
     }
 }

@@ -17,29 +17,48 @@ export type DecisionTreeState = any[];
 export type ChosenValues = {[key: string]: any};
 
 export function createInitialDecisionTreeState(decisionTree: DecisionTree): DecisionTreeState {
-    TODO
+    return [];
 }
 
 export function chooseValue(decisionTree: DecisionTree, state: DecisionTreeState, value: any): DecisionTreeState {
-    TODO
-}
-
-export function undoChoice(decisionTree: DecisionTree, state: DecisionTreeState): DecisionTreeState {
-    TODO
-}
-
-export function getChosenValues(decisionTree: DecisionTree, state: DecisionTreeState): ChosenValues {
-    TODO
-}
-
-export function isDecisionTreeFinished(decisionTree: DecisionTree, state: DecisionTreeState): boolean {
-    TODO
-}
-
-export function getNextDecision(decisionTree: DecisionTree, state: DecisionTreeState): Decision {
-    TODO
+    return fillHiddenDecisions(decisionTree, [...state, value]);
 }
 
 export function fillHiddenDecisions(decisionTree: DecisionTree, state: DecisionTreeState): DecisionTreeState {
-    TODO
+    while (state.length < decisionTree.length) {
+        const decision = decisionTree[state.length];
+        if (!decision.condition) {
+            break;
+        }
+        const chosenValues = getChosenValues(decisionTree, state);
+        if (decision.condition(chosenValues)) {
+            break;
+        }
+        state.push(undefined);
+    }
 }
+
+export function undoChoice(decisionTree: DecisionTree, state: DecisionTreeState): DecisionTreeState {
+    state = [...state];
+    state.pop();
+    while (state.length > 0 && state[state.length - 1] === undefined) {
+        state.pop();
+    }
+    return state;
+}
+
+export function getChosenValues(decisionTree: DecisionTree, state: DecisionTreeState): ChosenValues {
+    const chosenValues: ChosenValues = {};
+    for (let i = 0; i < state.length; i++) {
+        if (state[i] !== undefined) {
+            chosenValues[decisionTree[i].key] = state[i];
+        }
+    }
+    return chosenValues;
+}
+
+export function getNextDecision(decisionTree: DecisionTree, state: DecisionTreeState): Decision|null {
+    state = fillHiddenDecisions(decisionTree, state);
+    return state.length < decisionTree.length ? decisionTree[state.length] : null;
+}
+
