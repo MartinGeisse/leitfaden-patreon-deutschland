@@ -7,7 +7,7 @@ export type ResultViewProps = {
 
 export function ResultView(props: ResultViewProps) {
     return <div>
-        <form onSubmit={() => props.onUndoChoice()}>
+        <form onSubmit={(e) => {props.onUndoChoice(); e.preventDefault(); return false}}>
             <input type="submit" value="Zurück" />
         </form>
         <hr />

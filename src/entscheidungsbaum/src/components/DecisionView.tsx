@@ -10,15 +10,15 @@ export type DecisionViewProps = {
 export function DecisionView(props: DecisionViewProps) {
     const [selectedValue, setSelectedValue] = useState<any>(undefined);
     return <div>
-        <form onSubmit={() => props.onUndoChoice()}>
+        <form onSubmit={e => {props.onUndoChoice(); e.preventDefault(); return false;}}>
             <input type="submit" value="Zurück" />
         </form>
         <hr />
-        <form onSubmit={() => props.onChooseValue(selectedValue)}>
+        <form onSubmit={e => {props.onChooseValue(selectedValue); e.preventDefault(); return false;}}>
             <h2>{props.decision.text}</h2>
             <div>{props.decision.description}</div>
             <select value={selectedValue} onChange={e => setSelectedValue(e.target.value)}>
-                {props.decision.options.map(option => <option value={option.value}>{option.text}</option>)}
+                {props.decision.options.map((option, i) => <option key={i} value={option.value}>{option.text}</option>)}
             </select>
             <input type="submit" value="Ok" />
         </form>
