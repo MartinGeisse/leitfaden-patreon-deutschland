@@ -52,6 +52,12 @@ abgeführt? Muss man die andere selbst machen?
     * angeblich MUSS man dann aber Freiberufler sein
   * Wenn doch, dann geht das System wie beschrieben nach meinem Verständnis nicht!
 
+Speziell auf Patreon bezogen:
+* Patreon führt die Umsatzsteuer auf den kompletten Betrag ab
+* Ob Patreon die USt. auf die Auszahlung als Vorsteuer abzieht, ist nicht bekannt
+* Wenn der Kreative unter die Kleinunternehmerregelung fällt, dürften sie das nicht, sondern dieser muss eine "Rechnung" netto "stellen"
+* interessant wird es also, sobald man nicht mehr Kleinunternehmer ist. Dann gibt es vor allem offene Fragen, die von Seite Patreon beantwortet werden müssten.
+
 Links:
 * https://support.patreon.com/hc/de-de/articles/360047578411-Kreative-in-der-EU-h%C3%A4ufig-gestellte-Fragen-zum-Thema-Steuern
   * Patreon führt MwSt ab, und zwar im Namen von Patreon
