@@ -1,3 +1,5 @@
+import {useState} from 'react';
+import {Decision, ChosenValues} from "../data/model";
 
 export type DecisionViewProps = {
     decision: Decision;
@@ -9,7 +11,7 @@ export function DecisionView(props: DecisionViewProps) {
     const [selectedValue, setSelectedValue] = useState<any>(undefined);
     return <div>
         <form onSubmit={() => props.onUndoChoice()}>
-            <input type="submit" value="Zurück">
+            <input type="submit" value="Zurück" />
         </form>
         <hr />
         <form onSubmit={() => props.onChooseValue(selectedValue)}>
@@ -18,7 +20,7 @@ export function DecisionView(props: DecisionViewProps) {
             <select value={selectedValue} onChange={e => setSelectedValue(e.target.value)}>
                 {props.decision.options.map(option => <option value={option.value}>{option.text}</option>)}
             </select>
-            <input type="submit" value="Ok">
+            <input type="submit" value="Ok" />
         </form>
     </div>;
 }

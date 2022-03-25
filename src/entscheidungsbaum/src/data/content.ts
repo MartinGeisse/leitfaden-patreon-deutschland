@@ -1,4 +1,4 @@
-import {DecisionTree} from "./model";
+import {DecisionTree, ChosenValues} from "./model";
 
 export const decisionTree: DecisionTree = [
     {
@@ -12,7 +12,7 @@ export const decisionTree: DecisionTree = [
         ],
     },
     {
-        condition: (values: ChosenValues) => values.foo !== 2;
+        condition: (values: ChosenValues) => values.foo !== 2,
         key: "bar",
         text: "BAR",
         description: "barbarabarbar",

@@ -25,6 +25,7 @@ export function chooseValue(decisionTree: DecisionTree, state: DecisionTreeState
 }
 
 export function fillHiddenDecisions(decisionTree: DecisionTree, state: DecisionTreeState): DecisionTreeState {
+    state = [...state];
     while (state.length < decisionTree.length) {
         const decision = decisionTree[state.length];
         if (!decision.condition) {
@@ -36,6 +37,7 @@ export function fillHiddenDecisions(decisionTree: DecisionTree, state: DecisionT
         }
         state.push(undefined);
     }
+    return state;
 }
 
 export function undoChoice(decisionTree: DecisionTree, state: DecisionTreeState): DecisionTreeState {
