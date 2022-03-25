@@ -17,9 +17,13 @@ export function DecisionView(props: DecisionViewProps) {
         <form onSubmit={e => {props.onChooseValue(selectedValue); e.preventDefault(); return false;}}>
             <h2>{props.decision.text}</h2>
             <div>{props.decision.description}</div>
-            <select value={selectedValue} onChange={e => setSelectedValue(e.target.value)}>
-                {props.decision.options.map((option, i) => <option key={i} value={option.value}>{option.text}</option>)}
-            </select>
+            {props.decision.options.map((option, i) => <div>
+                <input key={i} id={"option" + i} type="radio" value={option.value}
+                    checked={option.value === selectedValue}
+                    onChange={e => {if (e.target.checked) setSelectedValue(option.value)}}
+                />
+                <label htmlFor={"option" + i}>{option.text}</label>
+            </div>)}
             <input type="submit" value="Ok" />
         </form>
     </div>;

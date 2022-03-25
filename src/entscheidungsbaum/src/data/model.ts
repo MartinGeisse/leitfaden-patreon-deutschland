@@ -21,7 +21,11 @@ export function createInitialDecisionTreeState(decisionTree: DecisionTree): Deci
 }
 
 export function chooseValue(decisionTree: DecisionTree, state: DecisionTreeState, value: any): DecisionTreeState {
-    return fillHiddenDecisions(decisionTree, [...state, value]);
+    if (value === undefined) {
+        return state;
+    } else {
+        return fillHiddenDecisions(decisionTree, [...state, value]);
+    }
 }
 
 export function fillHiddenDecisions(decisionTree: DecisionTree, state: DecisionTreeState): DecisionTreeState {
@@ -42,8 +46,10 @@ export function fillHiddenDecisions(decisionTree: DecisionTree, state: DecisionT
 
 export function undoChoice(decisionTree: DecisionTree, state: DecisionTreeState): DecisionTreeState {
     state = [...state];
-    state.pop();
     while (state.length > 0 && state[state.length - 1] === undefined) {
+        state.pop();
+    }
+    if (state.length > 0) {
         state.pop();
     }
     return state;
