@@ -1,5 +1,5 @@
-// import React from 'react';
+import {DecisionTreeView} from "./components/DecisionTreeView";
 
 export function App() {
-  return <div>hello world</div>;
+  return <DecisionTreeView />;
 }
