@@ -14,7 +14,7 @@ export function DecisionTreeView(props: DecisionTreeProps) {
     const onChooseValue = (value: any) => setState(chooseValue(props.decisionTree, state, value));
     const onUndoChoice = () => setState(undoChoice(props.decisionTree, state));
     if (decision) {
-        return <DecisionView decision={decision} onChooseValue={onChooseValue} onUndoChoice={onUndoChoice} />;
+        return <DecisionView key={decision.key} decision={decision} onChooseValue={onChooseValue} onUndoChoice={onUndoChoice} />;
     } else {
         return <ResultView chosenValues={getChosenValues(props.decisionTree, state)} onUndoChoice={onUndoChoice} />;
     }

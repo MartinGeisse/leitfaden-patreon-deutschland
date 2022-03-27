@@ -1,18 +1,20 @@
 import {DecisionTree, ChosenValues} from "./model";
 
+const yesNo = [
+    {text: "ja", value: true},
+    {text: "nein", value: false}
+];
+
 export const decisionTree: DecisionTree = [
     {
         key: "patreonEinkommen",
         text: "Welches Einkommen hast du über Patreon?",
         description: "Viele Dinge entscheiden sich nach Obergrenzen oder Daumenregeln, die sich auf das Einkommen" +
             " beziehen. Je weniger Einkommen, desto weniger Aufwand hat man damit. Dabei ist immer entscheidend, ob" +
-            " du garantiert unter einer bestimmten Grenze bleibst oder möglicherweise darüber bist. Achtung: In" +
-            " einem der unten genannten Fälle muss eine Grenze nicht nur im ganzen Jahr, sondern in jedem Monat" +
-            " eingehalten werden, d.h. in dem einen Fall kann man einen schwachen Monat nicht durch einen starken" +
-            " Monat ausgleichen, ohne über die Grenze zu kommen!",
+            " du garantiert unter einer bestimmten Grenze bleibst oder möglicherweise darüber bist.",
         options: [
             {text: "sicher unter 410€ jährlich (durchschnittlich 34,16€ monatlich)", value: 410},
-            {text: "in **jedem** Monat sicher unter 1645€ (und damit im Jahr unter 19740€)", value: 19740},
+            {text: "sicher unter 9984€ jährlich (durchschnittlich 832€ monatlich)", value: 9984},
             {text: "sicher unter 22000€ jährlich (durchschnittlich 1833,33€ monatlich)", value: 22000},
             {text: "sicher unter 24500€ jährlich (durchschnittlich 2041,66€ monatlich)", value: 24500},
             {text: "sicher unter 60000€ jährlich (durchschnittlich 5000€ monatlich)", value: 60000},
@@ -36,7 +38,20 @@ export const decisionTree: DecisionTree = [
         ],
     },
     {
-        condition: (chosenValues: ChosenValues) => chosenValues.patreonEinkommen <= 19740,
+        condition: (chosenValues: ChosenValues) => chosenValues.patreonEinkommen >= 1645 &&
+            chosenValues.patreonEinkommen < 19740 &&
+            chosenValues.hauptberufNebenberuf === "vollzeitPlusPatreon",
+        key: "patreonWirtschaftlichBedeutend",
+        text: "Liegt dein monatliches Einkommen als Kreativer garantiert unter 1645€?",
+        description: "Für die Sozialversicherung zählt nicht das Jahres-, sondern das Monatseinkommen. Das heißt," +
+            " hier kann man einen schwachen Monat nicht durch einen starken Monat ausgleichen, ohne über die Grenze zu kommen!",
+        options: yesNo,
+    },
+    {
+        condition: (chosenValues: ChosenValues) => chosenValues.patreonEinkommen >= 1645 &&
+            chosenValues.patreonEinkommen < 19740 &&
+            chosenValues.hauptberufNebenberuf === "vollzeitPlusPatreon" &&
+            !chosenValues.patreonWirtschaftlichBedeutend,
         key: "patreonArbeitszeit",
         text: "Wie viel Zeit investierst du in die Arbeit als Kreativer?",
         description: "Für die Sozialversicherung wird neben dem Einkommen auch die Arbeitszeit verwendet, um zu" +
@@ -55,20 +70,16 @@ export const decisionTree: DecisionTree = [
             " Gewerbesteuer fällig. Die reine Arbeit als Kreativer -- mit nur Einnahmen über Patreon -- geht i.A." +
             " als freiberufliche Tätigkeit durch und ist deshalb einfacher.\n\nAußerdem müssen für solche Arbeiten" +
             " Rechnungen gestellt werden, d.h. du musst dann die Funktionsweise der Umsatzsteuer verstehen.",
-        options: [
-            {text: "ja", value: true},
-            {text: "nein", value: false}
-        ],
+        options: yesNo,
     },
-//     {
-//         condition: (values: ChosenValues) => values.foo !== 2,
-//         key: "bar",
-//         text: "BAR",
-//         description: "barbarabarbar",
-//         options: [
-//             {text: "four", value: 4},
-//             {text: "five", value: 5},
-//             {text: "six", value: 6},
-//         ],
-//     },
 ];
+
+export function evaluate(chosenValues: ChosenValues): [string, ...any[]] {
+    return [
+        "Folgende Punkte müssen beachtet werden:",
+        "eins",
+        "zwei",
+        ["drei", "dreiB", "dreiC"],
+        ["vier", ["vierB", "vierB1"], "vierC"],
+    ];
+}

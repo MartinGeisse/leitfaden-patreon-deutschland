@@ -69,4 +69,3 @@ export function getNextDecision(decisionTree: DecisionTree, state: DecisionTreeS
     state = fillHiddenDecisions(decisionTree, state);
     return state.length < decisionTree.length ? decisionTree[state.length] : null;
 }
-

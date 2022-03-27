@@ -18,8 +18,8 @@ export function DecisionView(props: DecisionViewProps) {
             <h2>{props.decision.text}</h2>
             <div style={{whiteSpace: "pre-wrap"}}>{props.decision.description}</div>
             <br />
-            {props.decision.options.map((option, i) => <div>
-                <input key={i} id={"option" + i} type="radio" value={option.value}
+            {props.decision.options.map((option, i) => <div key={i}>
+                <input id={"option" + i} type="radio" value={option.value}
                     checked={option.value === selectedValue}
                     onChange={e => {if (e.target.checked) setSelectedValue(option.value)}}
                 />
